@@ -18,6 +18,7 @@ import club.tourdejeu.entities.Utilisateur;
 @Transactional
 public class EmpruntMetierImpl implements IEmpruntMetier {
 
+    // injection des dépendances
     @Autowired
     private EmpruntRepository empruntRepository;
     @Autowired
@@ -26,24 +27,28 @@ public class EmpruntMetierImpl implements IEmpruntMetier {
     @Override
     public Page<Emprunt> listeEmpruntsPersos(String username, int page, int size) {
 
+	// verification de la présence d'emprunt par un adhérent spécifique
 	Page<Emprunt> empruntsPerso = empruntRepository.listeEmpruntsPersos(username, new PageRequest(page, size));
 
 	if (!empruntsPerso.hasContent()) {
 	    throw new RuntimeException("Vous n'avez aucun emprunt en cours !");
 	}
 
+	// envoi de la liste des emprunts sous forme de page
 	return empruntsPerso;
     }
 
     @Override
     public Page<Emprunt> listeEmpruntsEnCours(int page, int size) {
 
+	// verification de la présence d'emprunts récent
 	Page<Emprunt> empruntsEnCours = empruntRepository.listeEmpruntsEnCours(new PageRequest(page, size));
 
 	if (!empruntsEnCours.hasContent()) {
 	    throw new RuntimeException("Aucun jeu n'a été emprunté récemment !");
 	}
 
+	// envoi de la liste des emprunts sous forme de page
 	return empruntsEnCours;
     }
 

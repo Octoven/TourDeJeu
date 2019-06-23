@@ -22,6 +22,7 @@ import club.tourdejeu.metier.IUtilisateurMetier;
 @Controller
 public class UtilisateurController {
 
+    // injection des dépendances
     @Autowired
     private IUtilisateurMetier utilisateurMetier;
     @Autowired
@@ -44,6 +45,7 @@ public class UtilisateurController {
 
 	ModelAndView mv = new ModelAndView();
 
+	// verification des contraintes
 	if (bindingResult.hasErrors()) {
 	    mv.setViewName("inscription");
 	    return mv;
