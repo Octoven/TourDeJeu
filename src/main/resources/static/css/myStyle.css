@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.red {
+	color: red;
+}
+
+.spacer40 {
+	margin-top: 40px;
+}
+
+.rightspacer15 {
+	margin-right: 15px;
+}
+
+p {
+	white-space: pre-line;
+}

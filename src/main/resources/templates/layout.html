@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tour de Jeu - Istres</title>
+<link rel="icon" href="../static/img/logo.png"
+	th:href="@{/img/logo.png}" type="image/png" sizes="16x16" />
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+	th:href="@{/css/myStyle.css}" />
+</head>
+<body>
+	<header>
+		<div class="navbar navbar-expand-md bg-dark navbar-dark">
+
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><img src="../img/logo.png"
+					alt="Logo" width="45" /></a>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<ul class="nav navbar-nav navbar-left">
+				<li sec:authorize="isAuthenticated()"><a
+					class="nav-link text-warning" th:href="@{/monCompte}"
+					th:inline="text">Bienvenue,
+						[[${#httpServletRequest.remoteUser}]]</a></li>
+			</ul>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link text-warning"
+						th:href="@{/listeEvenments}">Événements</a></li>
+					<li class="nav-item dropdown"><a href="#"
+						class="nav-link text-warning dropdown-toggle"
+						id="navbarDropdownJeux" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Nos Jeux</a>
+						<div class="dropdown-menu bg-dark"
+							aria-labelledby="navbarDropdownJeux">
+							<a class="dropdown-item bg-dark text-warning" th:href="@{/jeux}">Liste
+								de nos jeux</a> <a class="dropdown-item bg-dark text-warning"
+								th:href="@{/rechercheTitre}">Recherche par titre</a> <a
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/rechercheJoueurs}">Recherche par joueurs</a> <a
+								sec:authorize="hasRole('ROLE_USER')"
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/membre/emprunt}">Emprunter un jeu</a>
+						</div></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown"><a
+						href="#" class="nav-link text-warning dropdown-toggle"
+						id="navbarDropdownAdmin" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Admin</a>
+						<div class="dropdown-menu bg-dark"
+							aria-labelledby="navbarDropdownAdmin">
+							<a class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/empruntRetour}">Retour de prêt</a> <a
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/anciensEmprunts}">Anciens Prêts</a> <a
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/ajouterJeu}">Ajouter un jeu</a> <a
+								sec:authorize="hasRole('ROLE_USER')"
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/gestionJeux}">Gestion des jeux</a><a
+								class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/gestionUtilisateurs}">Gestion des
+								utilisateurs</a> <a class="dropdown-item bg-dark text-warning"
+								th:href="@{/admin/ajouterEvenement}">Ajout d'événement</a>
+						</div></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="nav-item" sec:authorize="isAnonymous()"><a
+						class="nav-link text-warning" th:href="@{/login}" th:inline="text">Connexion</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()">
+						<form class="form-inline my-2 my-lg-0" th:action="@{/logout}"
+							method="post">
+							<button class="btn btn-outline-danger btn-sm my-2 my-sm-0"
+								type="submit">Déconnexion</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</header>
+	<section layout:fragment="content"></section>
+	<footer>
+		<div class="footer-copyright text-center py-3">
+			© 2019 Copyright: <a href="#Top">Tour de Jeu</a>
+		</div>
+	</footer>
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+
+</body>
+</html>

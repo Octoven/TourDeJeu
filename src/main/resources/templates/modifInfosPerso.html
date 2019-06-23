@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+
+<title>Modification utilisateur</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="spacer col-md-6 offset-md-3 col-xs-12">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">Modification
+					de mes informations personnelles</div>
+				<div class="card-body">
+					<form th:action="@{/modifierUtilisateur}" method="post">
+						<div class="text-danger mb-3" th:if="${exception}"
+							th:text="${exception.message}"></div>
+						<div class="form-group">
+							<div class="form-group">
+								<label class="control-label">Pseudo</label> <label
+									class="form-control" th:text="${utilisateur.username}"></label><input
+									class="form-control" type="hidden" name="username"
+									th:value="${utilisateur.username}" /> <span class="red"
+									th:errors="${utilisateur.username}"></span>
+							</div>
+							<label class="control-label">Prénom</label> <input
+								class="form-control" type="text" name="prenom"
+								th:value="${utilisateur.prenom}" /> <span class="red"
+								th:errors="${utilisateur.prenom}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Nom</label> <input
+								class="form-control" type="text" name="nom"
+								th:value="${utilisateur.nom}" /> <span class="red"
+								th:errors="${utilisateur.nom}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Email</label> <input
+								class="form-control" type="email" name="email"
+								th:value="${utilisateur.email}" /> <span class="red"
+								th:errors="${utilisateur.email}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label" hidden="hidden">Mot de passe</label>
+							<input class="form-control" type="hidden" name="password"
+								th:value="${utilisateur.password}" /> <span class="red"
+								th:errors="${utilisateur.password}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Code Postal</label> <input
+								class="form-control" type="text" name="codePostal"
+								th:value="${utilisateur.codePostal}" /> <span class="red"
+								th:errors="${utilisateur.codePostal}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Téléphone</label> <input
+								class="form-control" type="tel" name="telephone"
+								th:value="${utilisateur.telephone}" /> <span class="red"
+								th:errors="${utilisateur.telephone}"></span>
+						</div>
+						<div class="col text-center">
+							<button type="submit" class="btn btn-danger">Modifier</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

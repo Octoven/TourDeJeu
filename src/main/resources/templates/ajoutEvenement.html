@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+
+<title>Ajout d'événement</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="spacer col-md-6 offset-md-3 col-xs-12">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">Fiche
+					d'événement</div>
+				<div class="card-body">
+					<form th:action="@{/admin/enregistrerEvenement}" method="post">
+						<div class="text-danger  mb-3" th:if="${exception}"
+							th:text="${exception.message}"></div>
+						<div class="form-group">
+							<label class="control-label">Date</label> <input
+								class="form-control" type="date" name="date"
+								th:value="${evenement.date}" /> <span class="red"
+								th:errors="${evenement.date}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Titre</label> <input
+								class="form-control" type="text" name="titre"
+								th:value="${evenement.titre}" /> <span class="red"
+								th:errors="${evenement.titre}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Lien hypertexte</label> <input
+								class="form-control" type="text" name="lien"
+								th:value="${evenement.lien}" /> <span class="red"
+								th:errors="${evenement.lien}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Bénévoles</label> <select
+								class="form-control" name="guerriers">
+								<option th:value="oui">Oui</option>
+								<option th:value="non" selected="selected">Non</option>
+							</select> 
+						</div>
+						<div class="form-group">
+							<label class="control-label">Texte informatif</label> <span
+								class="red" th:errors="${evenement.texteInfo}"></span>
+							<textarea class="form-control" name="texteInfo" rows="25"
+								cols="30" placeholder="Description de l'événement..."
+								th:value="${evenement.texteInfo}"></textarea>
+						</div>
+						<div class="col text-center">
+							<button type="submit" class="btn btn-danger">Enregistrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

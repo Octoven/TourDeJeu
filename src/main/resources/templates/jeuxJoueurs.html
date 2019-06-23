@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+
+<title>Recherche par joueurs</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-8 offset-md-2 col-xs-12">
+
+			<form th:action="@{/rechercheJoueurs}" method="get">
+				<div class="form-row align-items-center mt-3">
+					<div class="col-auto">
+						<label class="sr-only" for="inlineFormJoueurs">Nombre de
+							joueurs</label> <input type="number" name="joueurs" th:value="${joueurs}"
+							class="form-control mb-2" id="inlineFormJoueurs"
+							placeholder="Joueurs" />
+					</div>
+					<div class="col-auto">
+						<button class="btn btn-danger mb-2">Chercher</button>
+					</div>
+				</div>
+			</form>
+
+			<div class="card my-3">
+				<h3 class="card-header bg-danger text-warning">Liste des jeux</h3>
+				<div class="card-body">
+					<div class="text-danger mb-3" th:if="${exception}"
+						th:text="${exception.message}"></div>
+					<div class="table-responsive text-nowrap">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Titre</th>
+									<th>Joueurs Min.</th>
+									<th>Joueurs Max.</th>
+									<th>Durée</th>
+									<th>Genre</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="j:${listeJeux}">
+									<td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${j.idJeu}"></td>
+									<td th:text="${j.titre}"></td>
+									<td th:text="${j.joueursMin}"></td>
+									<td th:text="${j.joueursMax}"></td>
+									<td th:text="${j.duree}"></td>
+									<td th:text="${j.genre}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div th:if="${pageCourante}" class="col-md-8 offset-md-2 col-xs-12">
+
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-between">
+						<li th:if="${pageCourante lt 1}" class="page-item"><a
+							class="page-link" href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+						</a></li>
+						<li th:if="${pageCourante gt 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{/jeux(page=${pageCourante}-1,titre=${titre})}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+						</a></li>
+						<li th:if="${pageCourante lt totalPages-1}" class="page-item"><a
+							class="page-link"
+							th:href="@{/jeux(page=${pageCourante}+1,titre=${titre})}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+								class="sr-only">Next</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

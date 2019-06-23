@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+
+<title>Modification de jeu</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="spacer col-md-6 offset-md-3 col-xs-12">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">Fiche de jeu</div>
+				<div class="card-body">
+					<form th:action="@{/admin/modifierJeu}" method="post">
+						<div class="text-danger  mb-3" th:if="${exception}"
+							th:text="${exception.message}"></div>
+						<div class="form-group">
+							<label class="control-label">Id Jeu :</label> <label
+								th:text="${jeu.idJeu}"></label><input class="form-control"
+								type="hidden" name="idJeu" th:value="${jeu.idJeu}" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Titre</label> <input
+								class="form-control" type="text" name="titre"
+								th:value="${jeu.titre}" /> <span class="red"
+								th:errors="${jeu.titre}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Auteurs</label> <input
+								class="form-control" type="text" name="auteurs"
+								th:value="${jeu.auteurs}" /> <span class="red"
+								th:errors="${jeu.auteurs}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Durée</label> <input
+								class="form-control" type="text" name="duree"
+								th:value="${jeu.duree}" /> <span class="red"
+								th:errors="${jeu.duree}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Joueurs Min.</label> <input
+								class="form-control" type="number" name="joueursMin"
+								th:value="${jeu.joueursMin}" /> <span class="red"
+								th:errors="${jeu.joueursMin}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Joueurs Max.</label> <input
+								class="form-control" type="number" name="joueursMax"
+								th:value="${jeu.joueursMax}" /> <span class="red"
+								th:errors="${jeu.joueursMax}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Genre</label> <select
+								class="form-control" name="genre">
+								<option th:selected="${jeu.genre.equals('Ambiance')}" th:value="Ambiance">Ambiance</option>
+								<option th:selected="${jeu.genre.equals('Expert')}" th:value="Expert" selected="selected">Expert</option>
+								<option th:selected="${jeu.genre.equals('Familial')}" th:value="Familial">Familial</option>
+							</select> <span class="red" th:errors="${jeu.genre}"></span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Extension</label> <select
+								class="form-control" name="extensionJeu">
+								<option th:selected="${jeu.extension} == true" th:value="oui">Oui</option>
+								<option th:selected="${jeu.extension} == false" th:value="non">Non</option>
+							</select>
+						</div>
+						<div th:hidden="${emprunte}" class="form-group">
+							<label class="control-label">Empruntable</label> <select
+								class="form-control" name="empruntable">
+								<option th:selected="${jeu.dispoPret} == true" th:value="oui">Oui</option>
+								<option th:selected="${jeu.dispoPret} == false" th:value="non" selected="selected">Non</option>
+							</select>
+						</div>
+						<div class="col text-center">
+							<button type="submit" class="btn btn-danger">Enregistrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

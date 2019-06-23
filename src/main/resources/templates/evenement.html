@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<title>Evénement</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container spacer40">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">
+					<a class="nav-link text-warning" th:href="@{${evenement.lien}}"
+						target="_blank" th:text="${evenement.titre}"></a>
+					<span class="col text-right" th:text="${evenement.date}"></span>
+				</div>
+				<div class="card-body">
+					<p th:text="${evenement.texteInfo}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

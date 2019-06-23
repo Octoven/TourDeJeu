@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="layout">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<title>Fiche Utilisateur</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="container spacer40">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">Informations
+					Personnelles</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label class="control-label">Pseudo :</label> <label
+							th:text="${utilisateur.username}"></label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prénom :</label> <label
+							th:text="${utilisateur.prenom}"></label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Nom :</label> <label
+							th:text="${utilisateur.nom}"></label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Email :</label> <label
+							th:text="${utilisateur.email}"></label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Code Postal :</label> <label
+							th:text="${utilisateur.codePostal}"></label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Téléphone :</label> <label
+							th:text="${utilisateur.telephone}"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div sec:authorize="hasRole('ROLE_ADMIN')" class="container spacer40">
+			<div class="card spacer40">
+				<div class="card-header bg-danger text-warning">Droits de
+					l'utilisateur</div>
+				<div class="card-body">
+					<div class="text-danger mb-3" th:if="${exception}"
+						th:text="${exception.message}"></div>
+					<table class="table table-striped">
+						<tr>
+							<th>Rôle</th>
+							<th></th>
+							<th>Action</th>
+						</tr>
+						<tr th:each="ru:${listeRoles}">
+							<td th:if="${ru.role.role.equals('USER')}">Adhérent</td>
+							<td th:if="${ru.role.role.equals('ADMIN')}">Administrateur</td>
+							<td th:if="${ru.role.role.equals('GUEST')}">Invité</td>
+							<td th:if="${ru.role.role.equals('SUPER')}">Super
+								Administrateur</td>
+							<td></td>
+							<td><form sec:authorize="hasRole('ROLE_SUPER')"
+									th:action="@{/super/supprimerRole}" method="post">
+									<input type="hidden" name="idRoUt" th:value="${ru.idRoUt}" />
+									<input type="hidden" name="username"
+										th:value="${utilisateur.username}" />
+									<button type="submit" class="btn btn-danger"
+										onclick="return confirm ('Etes-vous sûr de vouloir retirer ce rôle pour cet(te) utilisateur(trice) ?')">Retirer</button>
+								</form></td>
+						</tr>
+						<tr>
+							<td>Ajouter Rôler</td>
+							<td>
+								<form id="form2" th:action="@{/admin/ajouterRole}" method="post">
+									<input type="hidden" name="username"
+										th:value="${utilisateur.username}" />
+									<div class="form-row align-items-center">
+										<div class="col-auto">
+											<label class="sr-only" for="inlineFormTitre">Pseudo</label> <select
+												class="form-control" name="role">
+												<option th:value="GUEST">Invité</option>
+												<option th:value="USER" selected="selected">Adhérent</option>
+												<option sec:authorize="hasRole('ROLE_SUPER')"
+													th:value="ADMIN">Administrateur</option>
+												<option sec:authorize="hasRole('ROLE_SUPER')"
+													th:value="SUPER">Super Administrateur</option>
+											</select>
+										</div>
+									</div>
+								</form>
+							</td>
+							<td>
+								<button class="btn btn-success" type="submit" form="form2">Promouvoir</button>
+							</td>
+						</tr>
+					</table>
+					<div th:if="${pageCourante}" class="col-md-8 offset-md-2 col-xs-12">>
+
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-between">
+								<li th:if="${pageCourante lt 1}" class="page-item"><a
+									class="page-link" href="#" aria-label="Previous"> <span
+										aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+								</a></li>
+								<li th:if="${pageCourante gt 0}" class="page-item"><a
+									class="page-link"
+									th:href="@{/jeux(page=${pageCourante}-1,titre=${titre})}"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+								</a></li>
+								<li th:if="${pageCourante lt totalPages-1}" class="page-item"><a
+									class="page-link"
+									th:href="@{/jeux(page=${pageCourante}+1,titre=${titre})}"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">Next</span>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
