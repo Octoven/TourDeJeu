@@ -60,20 +60,22 @@
 				<div class="card-body">
 					<div class="text-danger mb-3" th:if="${exception}"
 						th:text="${exception.message}"></div>
-					<table class="table table-striped">
-						<tr>
-							<th>Titre</th>
-							<th>Date du prêt</th>
-						</tr>
-						<tr th:each="e:${listeEmprunts}">
-							<td th:text="${e.jeu.titre}"></td>
-							<td th:text="${e.dateEmprunt}"></td>
-						</tr>
-					</table>
+					<div class="table-responsive text-nowrap">
+						<table class="table table-striped">
+							<tr>
+								<th>Titre</th>
+								<th>Date du prêt</th>
+							</tr>
+							<tr th:each="e:${listeEmprunts}">
+								<td th:text="${e.jeu.titre}"></td>
+								<td th:text="${e.dateEmprunt}"></td>
+							</tr>
+						</table>
+					</div>
 					<div th:if="${pageCourante}" class="col-md-8 offset-md-2 col-xs-12">
 
 						<nav aria-label="Page navigation">
-							<ul class="pagination justify-content-between">								
+							<ul class="pagination justify-content-between">
 								<li th:if="${pageCourante gt 0}" class="page-item"><a
 									class="page-link"
 									th:href="@{/jeux(page=${pageCourante}-1,titre=${titre})}"

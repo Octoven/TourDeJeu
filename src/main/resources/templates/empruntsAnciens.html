@@ -19,21 +19,23 @@
 				<div class="card-body">
 					<div class="text-danger mb-3" th:if="${exception}"
 						th:text="${exception.message}"></div>
-					<table class="table table-striped">
-						<tr>
-							<th>Titre</th>
-							<th>Membre</th>
-							<th>Date du prêt</th>
-							<th>Date du retour</th>
-						</tr>
-						<tr th:each="e:${listeEmprunts}">
-							<td th:text="${e.jeu.titre}"></td>
-							<td
-								th:text="${e.utilisateur.prenom} + ' ' + ${e.utilisateur.nom}"></td>
-							<td th:text="${e.dateEmprunt}"></td>
-							<td th:text="${e.dateRetour}"></td>
-						</tr>
-					</table>
+					<div class="table-responsive text-nowrap">
+						<table class="table table-striped">
+							<tr>
+								<th>Titre</th>
+								<th>Membre</th>
+								<th>Date du prêt</th>
+								<th>Date du retour</th>
+							</tr>
+							<tr th:each="e:${listeEmprunts}">
+								<td th:text="${e.jeu.titre}"></td>
+								<td
+									th:text="${e.utilisateur.prenom} + ' ' + ${e.utilisateur.nom}"></td>
+								<td th:text="${e.dateEmprunt}"></td>
+								<td th:text="${e.dateRetour}"></td>
+							</tr>
+						</table>
+					</div>
 					<div th:if="${pageCourante}" class="col-md-8 offset-md-2 col-xs-12">
 
 						<nav aria-label="Page navigation">
