@@ -1,1 +1,1 @@
-web: java -Djasypt.encryptor.password=$CRYPT -jar $JAVA_OPTS -Dserver.port=$PORT target/TourDeJeu-0.0.1-SNAPSHOT.jar
+web: java -Djasypt.encryptor.password=CRYPT -jar $JAVA_OPTS -Dserver.port=$PORT target/TourDeJeu-0.0.1-SNAPSHOT.jar
