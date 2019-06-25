@@ -57,7 +57,7 @@
 									<td sec:authorize="hasRole('ROLE_USER')"
 										th:if="${j.dispoPret} != true"><form>
 											<button type="submit" class="btn btn-danger"
-												disabled="disabled">Emprunter</button>
+												disabled="disabled">Indisponible</button>
 										</form></td>
 									<td th:text="${j.titre}"></td>
 									<td th:text="${j.joueursMin}"></td>
