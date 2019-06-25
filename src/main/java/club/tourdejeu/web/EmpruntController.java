@@ -26,6 +26,7 @@ public class EmpruntController {
     @Autowired
     private IJeuMetier jeuMetier;
 
+    // mapping to the game loan page
     @RequestMapping(value = "/membre/emprunt", method = RequestMethod.GET)
     public ModelAndView pageEmprunt(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -51,6 +52,7 @@ public class EmpruntController {
 	return mv;
     }
 
+    // mapping the game loan action
     @RequestMapping(value = "/membre/emprunter", method = RequestMethod.POST)
     public ModelAndView emprunter(Authentication authentication, @RequestParam(name = "idJeu") Long idJeu,
 	    @RequestParam(name = "page", defaultValue = "0") int p,
@@ -98,6 +100,7 @@ public class EmpruntController {
 	return mv;
     }
 
+    // mapping the loan return page
     @RequestMapping(value = "/admin/empruntRetour", method = RequestMethod.GET)
     public ModelAndView pageRetour(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s) {
@@ -122,6 +125,7 @@ public class EmpruntController {
 	return mv;
     }
 
+    // mapping the loan return action
     @RequestMapping(value = "/admin/retour", method = RequestMethod.POST)
     public ModelAndView retour(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -156,6 +160,7 @@ public class EmpruntController {
 	return mv;
     }
 
+    // mapping the old loans page (returned loans)
     @RequestMapping(value = "/admin/anciensEmprunts", method = RequestMethod.GET)
     public ModelAndView empruntsAnciens(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s) {

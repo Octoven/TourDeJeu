@@ -6,6 +6,7 @@ import club.tourdejeu.entities.Role;
 
 public interface RoleRepository extends JpaRepository<Role, String> {
 
-    public Role findByRole(String role);
+    // not sure why this was added - need to check the real use of this method
+    // public Role findByRole(String role);
 
 }

@@ -12,9 +12,11 @@ public interface EvenementRepository extends JpaRepository<Evenement, Long> {
 
     public final static String VERIFIER_DOUBLON = "select e from Evenement e where e.titre like :x and e.date like :y";
 
+    // fetching event using event title and date as search criteria
     @Query(VERIFIER_DOUBLON)
     public Evenement verifierDoublon(@Param("x") String titre, @Param("y") String date);
 
+    // fetching all events ordered by date
     public Page<Evenement> findAllByOrderByDateDesc(Pageable pageable);
 
 }

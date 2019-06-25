@@ -19,18 +19,21 @@ public class RoleUtilisateurMetierImpl implements IRoleUtilisateurMetier {
     @Override
     public Page<RoleUtilisateur> quelRole(String pseudo, int p, int s) {
 
+	// checking if the user has been assigned any role
 	Page<RoleUtilisateur> quelRole = ruRepository.rolesUtilisateur(pseudo, new PageRequest(p, s));
 
 	if (!quelRole.hasContent()) {
 	    throw new RuntimeException("Aucun rôle n'a été attribué à cet(te) utilisateur(trice) !");
 	}
 
+	// returning roles assigned to the user
 	return quelRole;
     }
 
     @Override
     public void supprimerRole(Long idRoUt) {
 
+	// deleting a user and role association
 	ruRepository.delete(idRoUt);
 
     }
@@ -38,12 +41,14 @@ public class RoleUtilisateurMetierImpl implements IRoleUtilisateurMetier {
     @Override
     public void ajouterRole(RoleUtilisateur ru) {
 
+	// checking if the user and the role have already been associated in the table
 	RoleUtilisateur ruCheck = ruRepository.verifierRole(ru.getUtilisateur().getUsername(), ru.getRole().getRole());
 
 	if (ruCheck != null) {
 	    throw new RuntimeException("Ce rôle est déjà attribué à cet(te) utilisateur(trice) !");
 	}
 
+	// adding a new role/user association to the concerned table
 	ruRepository.save(ru);
 
     }

@@ -38,13 +38,10 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency> -->
-		
+		<!-- Temporarily disabling devtools to test deployment on Heroku -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			<scope>runtime</scope> <optional>true</optional> </dependency> -->
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -60,18 +57,24 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Ajout de la dépendance Thymeleaf avec Spring Security 4 -->
+
+		<!-- Adding Thymeleaf Spring Security 4 dependency -->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
-		<!-- Ajout de la dépendance Tomcat pour déploiment war -->
-<!-- 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency> -->
-		
+
+		<!-- Adding Tomcat dependency for war Apache Tomcat deployment -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
+			<scope>provided</scope> </dependency> -->
+
+		<!-- adding jsypt security dependency to encrypt datasource information -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>1.14</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

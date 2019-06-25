@@ -20,6 +20,7 @@ public class EvenementController {
     @Autowired
     private IEvenementMetier evMetier;
 
+    // mapping the recorded events page
     @RequestMapping(value = "/listeEvenments", method = RequestMethod.GET)
     public ModelAndView listeEvenments(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "5") int s) {
@@ -37,6 +38,7 @@ public class EvenementController {
 	return mv;
     }
 
+    // mapping specific event view page
     @RequestMapping(value = "/consulterEvenement", method = RequestMethod.GET)
     public ModelAndView listeEvenments(@RequestParam(name = "idEvenement", defaultValue = "-1") Long idEvenement) {
 
@@ -52,6 +54,7 @@ public class EvenementController {
 	return mv;
     }
 
+    // mapping the event creation form
     @RequestMapping(value = "/admin/ajouterEvenement")
     public ModelAndView inscriptionEvenement() {
 
@@ -62,6 +65,7 @@ public class EvenementController {
 	return mv;
     }
 
+    // mapping the event creation action
     @RequestMapping(value = "/admin/enregistrerEvenement", method = RequestMethod.POST)
     public ModelAndView enregisterJeu(@Valid Evenement e, BindingResult bindingResult,
 	    @RequestParam(name = "guerriers") String benevoles) {

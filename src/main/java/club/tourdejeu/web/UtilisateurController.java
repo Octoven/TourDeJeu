@@ -22,7 +22,6 @@ import club.tourdejeu.metier.IUtilisateurMetier;
 @Controller
 public class UtilisateurController {
 
-    // injection des dépendances
     @Autowired
     private IUtilisateurMetier utilisateurMetier;
     @Autowired
@@ -30,6 +29,7 @@ public class UtilisateurController {
     @Autowired
     private IRoleUtilisateurMetier ruMetier;
 
+    // mapping the registration form page
     @RequestMapping(value = "/inscription")
     public ModelAndView inscription() {
 
@@ -40,6 +40,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping the user registration action
     @RequestMapping(value = "/enregistrerUtilisateur", method = RequestMethod.POST)
     public ModelAndView enregistrerUtilisateur(@Valid Utilisateur u, BindingResult bindingResult) {
 
@@ -66,6 +67,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping the user information form - to update personal information
     @RequestMapping(value = "/modifInfosPerso", method = RequestMethod.GET)
     public ModelAndView modifInfosPerso(Authentication authentication) {
 
@@ -82,6 +84,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping the user information update action
     @RequestMapping(value = "/modifierUtilisateur", method = RequestMethod.POST)
     public ModelAndView modifierUtilisateur(@Valid Utilisateur u, BindingResult bindingResult) {
 
@@ -107,6 +110,9 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping the user account information page - including the user current loans
+    // - for future update check if personnal comments and and voluntary work for
+    // events can be added
     @RequestMapping(value = "/monCompte", method = RequestMethod.GET)
     public ModelAndView moncompte(Authentication authentication,
 	    @RequestParam(name = "page", defaultValue = "0") int page,
@@ -142,6 +148,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping to admin user management page - search by user first name
     @RequestMapping(value = "/admin/gestionUtilisateurs", method = RequestMethod.GET)
     public ModelAndView gestionUtilisateur(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -168,6 +175,9 @@ public class UtilisateurController {
 
     }
 
+    // mapping to admin specific user information page - where acces rights can be
+    // set but no
+    // personnal information changed
     @RequestMapping(value = "/admin/ficheUtilisateur", method = RequestMethod.GET)
     public ModelAndView ficheUtilisateur(@RequestParam(name = "username", defaultValue = "") String pseudo,
 	    @RequestParam(name = "page", defaultValue = "0") int p,
@@ -197,6 +207,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping for disabling an user account action - super admin only
     @RequestMapping(value = "super/desactiverUtilisateur", method = RequestMethod.POST)
     public ModelAndView desactiverUtilisateur(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -232,6 +243,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping for enabling an user account action - super admin only
     @RequestMapping(value = "super/reactiverUtilisateur", method = RequestMethod.POST)
     public ModelAndView reactiverUtilisateur(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -267,6 +279,7 @@ public class UtilisateurController {
 	return mv;
     }
 
+    // mapping for deleting an user account action - super admin only
     @RequestMapping(value = "/super/supprimerUtilisateur", method = RequestMethod.POST)
     public ModelAndView supprimerUtilisateur(@RequestParam(name = "username", defaultValue = "") String pseudo,
 	    @RequestParam(name = "page", defaultValue = "0") int p,

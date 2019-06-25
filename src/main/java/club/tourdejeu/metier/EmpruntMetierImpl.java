@@ -18,7 +18,6 @@ import club.tourdejeu.entities.Utilisateur;
 @Transactional
 public class EmpruntMetierImpl implements IEmpruntMetier {
 
-    // injection des dépendances
     @Autowired
     private EmpruntRepository empruntRepository;
     @Autowired
@@ -27,34 +26,35 @@ public class EmpruntMetierImpl implements IEmpruntMetier {
     @Override
     public Page<Emprunt> listeEmpruntsPersos(String username, int page, int size) {
 
-	// verification de la présence d'emprunt par un adhérent spécifique
+	// checking if a specific user has ongoing board game loans
 	Page<Emprunt> empruntsPerso = empruntRepository.listeEmpruntsPersos(username, new PageRequest(page, size));
 
 	if (!empruntsPerso.hasContent()) {
 	    throw new RuntimeException("Vous n'avez aucun emprunt en cours !");
 	}
 
-	// envoi de la liste des emprunts sous forme de page
+	// sendind personal ongoing loans as a page
 	return empruntsPerso;
     }
 
     @Override
     public Page<Emprunt> listeEmpruntsEnCours(int page, int size) {
 
-	// verification de la présence d'emprunts récent
+	// checking if there are ongoing loans at the time of the request
 	Page<Emprunt> empruntsEnCours = empruntRepository.listeEmpruntsEnCours(new PageRequest(page, size));
 
 	if (!empruntsEnCours.hasContent()) {
 	    throw new RuntimeException("Aucun jeu n'a été emprunté récemment !");
 	}
 
-	// envoi de la liste des emprunts sous forme de page
+	// sendind ongoing loans as a page
 	return empruntsEnCours;
     }
 
     @Override
     public Emprunt emprunt(Utilisateur u, Jeu j) {
 
+	// checking if a game can be borrowed at the time the request was submitted
 	Emprunt check = empruntRepository.checkDispo(j.getIdJeu());
 	Emprunt em;
 
@@ -62,6 +62,8 @@ public class EmpruntMetierImpl implements IEmpruntMetier {
 	    throw new RuntimeException("Ce jeu n'est pas disponible à l'heure actuelle !");
 	}
 
+	// if the game can be borrowed creating a new loan for the user in the loan
+	// table
 	else {
 
 	    em = new Emprunt();
@@ -76,18 +78,22 @@ public class EmpruntMetierImpl implements IEmpruntMetier {
 	    jeuRepository.save(j);
 	}
 
+	// returning the newly created loan
 	return em;
     }
 
     @Override
     public Emprunt retour(Long idEmprunt) {
 
+	// checking if a game has been borrowed and not returned yet
 	Emprunt retour = empruntRepository.findOne(idEmprunt);
 
 	if (retour.getDateRetour() != null) {
 	    throw new RuntimeException("Ce jeu n'a pas été emprunté !");
 	}
 
+	// if the game hasn't been returned yet - adding a retunr date to validate its
+	// return and setting its availabilty to true for further loans
 	else {
 	    retour.setDateRetour(new Date());
 	    Jeu j = retour.getJeu();
@@ -96,18 +102,23 @@ public class EmpruntMetierImpl implements IEmpruntMetier {
 	    jeuRepository.save(j);
 	}
 
+	// returning the newly updated loan - Not sure whether the method should be
+	// changed to void rather than returning the loan
 	return retour;
     }
 
     @Override
     public Page<Emprunt> listeEmpruntsAnciens(int page, int size) {
 
+	// checking if there have ever been game loans recorded in the database
 	Page<Emprunt> empruntsAnciens = empruntRepository.listeEmpruntsAncien(new PageRequest(page, size));
 
 	if (!empruntsAnciens.hasContent()) {
 	    throw new RuntimeException("Aucun jeu n'a été emprunté !");
 	}
 
+	// returning a page of all past loans - loans for which the return date isn't
+	// null
 	return empruntsAnciens;
     }
 

@@ -25,6 +25,7 @@ public class RoleUtilisateurController {
     @Autowired
     private RoleRepository roleRepository;
 
+    // mapping the role/user association deletion action
     @RequestMapping(value = "/super/supprimerRole", method = RequestMethod.POST)
     public ModelAndView supprimerRole(Long idRoUt, @RequestParam(value = "username", defaultValue = "") String pseudo,
 	    @RequestParam(name = "page", defaultValue = "0") int p,
@@ -59,6 +60,7 @@ public class RoleUtilisateurController {
 	return mv;
     }
 
+    // mapping the user/role association creation action
     @RequestMapping(value = "/admin/ajouterRole", method = RequestMethod.POST)
     public ModelAndView ajouterRole(@RequestParam(value = "role", defaultValue = "") String role,
 	    @RequestParam(value = "username", defaultValue = "") String pseudo,

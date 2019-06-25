@@ -24,6 +24,7 @@ public class JeuController {
     @Autowired
     private EmpruntRepository empruntRepository;
 
+    // mapping the games collection view
     @RequestMapping(value = "/jeux")
     public ModelAndView indexJeux(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s) {
@@ -41,6 +42,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game search by title page
     @RequestMapping(value = "/rechercheTitre", method = RequestMethod.GET)
     public ModelAndView rechercheTitre(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -66,6 +68,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game search by number of players page
     @RequestMapping(value = "/rechercheJoueurs", method = RequestMethod.GET)
     public ModelAndView rechercheJoueurs(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -91,6 +94,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game adding form
     @RequestMapping(value = "/admin/ajouterJeu")
     public ModelAndView inscriptionJeu() {
 
@@ -101,6 +105,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game adding action
     @RequestMapping(value = "/admin/enregistrerJeu", method = RequestMethod.POST)
     public ModelAndView enregisterJeu(@Valid Jeu j, BindingResult bindingResult,
 	    @RequestParam(name = "extensionJeu") String extension,
@@ -136,6 +141,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game management general view
     @RequestMapping(value = "/admin/gestionJeux", method = RequestMethod.GET)
     public ModelAndView gestionJeux(@RequestParam(name = "page", defaultValue = "0") int p,
 	    @RequestParam(name = "size", defaultValue = "25") int s,
@@ -162,6 +168,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game deletion action
     @RequestMapping(value = "/admin/supprimerJeu", method = RequestMethod.POST)
     public ModelAndView enregisterJeu(@RequestParam(name = "idJeu", defaultValue = "-1") Long idJeu,
 	    @RequestParam(name = "page", defaultValue = "0") int p,
@@ -199,6 +206,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game information form - for informations update
     @RequestMapping(value = "/admin/ficheJeu", method = RequestMethod.GET)
     public ModelAndView ficheJeu(Long idJeu) {
 
@@ -222,6 +230,7 @@ public class JeuController {
 	return mv;
     }
 
+    // mapping the game update action
     @RequestMapping(value = "/admin/modifierJeu", method = RequestMethod.POST)
     public ModelAndView modifierJeu(@Valid Jeu j, BindingResult bindingResult,
 	    @RequestParam(name = "extensionJeu") String extension,
